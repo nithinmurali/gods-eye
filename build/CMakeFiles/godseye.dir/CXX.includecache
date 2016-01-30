@@ -6,15 +6,29 @@
 
 #IncludeRegexTransform: 
 
-/home/nithin/data/dev/godseye/main1.cpp
+/home/nithin/data/dev/godseye/color_constancy.hpp
 opencv2/highgui/highgui.hpp
 /home/nithin/data/dev/godseye/opencv2/highgui/highgui.hpp
 opencv2/imgproc/imgproc.hpp
 /home/nithin/data/dev/godseye/opencv2/imgproc/imgproc.hpp
-stdio.h
--
 iostream
 -
+stdio.h
+-
+
+/home/nithin/data/dev/godseye/main.cpp
+iostream
+-
+opencv2/highgui/highgui.hpp
+/home/nithin/data/dev/godseye/opencv2/highgui/highgui.hpp
+opencv2/imgproc/imgproc.hpp
+/home/nithin/data/dev/godseye/opencv2/imgproc/imgproc.hpp
+stdlib.h
+-
+fstream
+-
+color_constancy.hpp
+/home/nithin/data/dev/godseye/color_constancy.hpp
 
 /usr/local/include/opencv2/core/core.hpp
 opencv2/core/types_c.h

@@ -1,5 +1,6 @@
 FILE(REMOVE_RECURSE
-  "CMakeFiles/godseye.dir/main1.cpp.o"
+  "CMakeFiles/godseye.dir/main.cpp.o"
+  "CMakeFiles/godseye.dir/color_constancy.cpp.o"
   "godseye.pdb"
   "godseye"
 )

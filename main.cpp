@@ -91,18 +91,26 @@ void inten(Mat image)
 {
     Mat inimg;
     image.copyTo(inimg);
-    int hist[256];
+    int hist[256],val=0;
     for (int i = 0; i < 256; ++i)
     {
         hist[i]=0;
     }
+    cout<<"q"<<(int)inimg.at<cv::Vec3b>(0,0)[0]<<endl;
     float mean=0,N=0;
+
     for (int i = 0; i < inimg.rows; ++i)
     {
         for (int j = 0; j < inimg.cols; ++j)
         {
-            hist[i]+= (inimg.at<cv::Vec3b>(i,j)[0]+inimg.at<cv::Vec3b>(i,j)[1]+inimg.at<cv::Vec3b>(i,j)[2])/3;
-            
+            val=0;
+            val+= (int)inimg.at<cv::Vec3b>(i,j)[0];
+            val+= (int)inimg.at<cv::Vec3b>(i,j)[1];
+            val+=(int)inimg.at<cv::Vec3b>(i,j)[2];
+            val/=3;
+            //val+= ( (int)inimg.at<cv::Vec3b>(i,j)[0] + (int)inimg.at<cv::Vec3b>(i,j)[1]+(int)inimg.at<cv::Vec3b>(i,j)[2] )/3;
+            //cout<<":"<<val;
+            hist[val]++;
         }
     }
     for (int i = 0; i < 256; ++i)
@@ -111,7 +119,18 @@ void inten(Mat image)
         N+=hist[i];
     }
     mean = mean/N;
-    cout<<"mean intensity "<<mean<<endl;
+
+    double var=0;
+    int totalCount=0,sum=0;
+    for( int i = 0; i < 256; i++){
+          int binVal = (hist[i]);
+          sum += (i-mean)*(i-mean);
+          totalCount += binVal;
+    }
+    var = sum/totalCount;
+
+    cout<<"mean intensity: "<<mean<<" var"<<var<<endl;
+
 }
 
  int main( int argc, char** argv )
@@ -176,7 +195,7 @@ void inten(Mat image)
         
         
         inten(input);
-        
+
         cv::cvtColor (im1,im1,CV_BGR2YCrCb);
         vector <Mat> channels;
         cv::split(im1,channels);

@@ -49,37 +49,62 @@ include CMakeFiles/godseye.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/godseye.dir/flags.make
 
-CMakeFiles/godseye.dir/main1.cpp.o: CMakeFiles/godseye.dir/flags.make
-CMakeFiles/godseye.dir/main1.cpp.o: ../main1.cpp
+CMakeFiles/godseye.dir/main.cpp.o: CMakeFiles/godseye.dir/flags.make
+CMakeFiles/godseye.dir/main.cpp.o: ../main.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/nithin/data/dev/godseye/build/CMakeFiles $(CMAKE_PROGRESS_1)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/godseye.dir/main1.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/godseye.dir/main1.cpp.o -c /home/nithin/data/dev/godseye/main1.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/godseye.dir/main.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/godseye.dir/main.cpp.o -c /home/nithin/data/dev/godseye/main.cpp
 
-CMakeFiles/godseye.dir/main1.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/godseye.dir/main1.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/nithin/data/dev/godseye/main1.cpp > CMakeFiles/godseye.dir/main1.cpp.i
+CMakeFiles/godseye.dir/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/godseye.dir/main.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/nithin/data/dev/godseye/main.cpp > CMakeFiles/godseye.dir/main.cpp.i
 
-CMakeFiles/godseye.dir/main1.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/godseye.dir/main1.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/nithin/data/dev/godseye/main1.cpp -o CMakeFiles/godseye.dir/main1.cpp.s
+CMakeFiles/godseye.dir/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/godseye.dir/main.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/nithin/data/dev/godseye/main.cpp -o CMakeFiles/godseye.dir/main.cpp.s
 
-CMakeFiles/godseye.dir/main1.cpp.o.requires:
-.PHONY : CMakeFiles/godseye.dir/main1.cpp.o.requires
+CMakeFiles/godseye.dir/main.cpp.o.requires:
+.PHONY : CMakeFiles/godseye.dir/main.cpp.o.requires
 
-CMakeFiles/godseye.dir/main1.cpp.o.provides: CMakeFiles/godseye.dir/main1.cpp.o.requires
-	$(MAKE) -f CMakeFiles/godseye.dir/build.make CMakeFiles/godseye.dir/main1.cpp.o.provides.build
-.PHONY : CMakeFiles/godseye.dir/main1.cpp.o.provides
+CMakeFiles/godseye.dir/main.cpp.o.provides: CMakeFiles/godseye.dir/main.cpp.o.requires
+	$(MAKE) -f CMakeFiles/godseye.dir/build.make CMakeFiles/godseye.dir/main.cpp.o.provides.build
+.PHONY : CMakeFiles/godseye.dir/main.cpp.o.provides
 
-CMakeFiles/godseye.dir/main1.cpp.o.provides.build: CMakeFiles/godseye.dir/main1.cpp.o
+CMakeFiles/godseye.dir/main.cpp.o.provides.build: CMakeFiles/godseye.dir/main.cpp.o
+
+CMakeFiles/godseye.dir/color_constancy.cpp.o: CMakeFiles/godseye.dir/flags.make
+CMakeFiles/godseye.dir/color_constancy.cpp.o: ../color_constancy.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nithin/data/dev/godseye/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/godseye.dir/color_constancy.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/godseye.dir/color_constancy.cpp.o -c /home/nithin/data/dev/godseye/color_constancy.cpp
+
+CMakeFiles/godseye.dir/color_constancy.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/godseye.dir/color_constancy.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/nithin/data/dev/godseye/color_constancy.cpp > CMakeFiles/godseye.dir/color_constancy.cpp.i
+
+CMakeFiles/godseye.dir/color_constancy.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/godseye.dir/color_constancy.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/nithin/data/dev/godseye/color_constancy.cpp -o CMakeFiles/godseye.dir/color_constancy.cpp.s
+
+CMakeFiles/godseye.dir/color_constancy.cpp.o.requires:
+.PHONY : CMakeFiles/godseye.dir/color_constancy.cpp.o.requires
+
+CMakeFiles/godseye.dir/color_constancy.cpp.o.provides: CMakeFiles/godseye.dir/color_constancy.cpp.o.requires
+	$(MAKE) -f CMakeFiles/godseye.dir/build.make CMakeFiles/godseye.dir/color_constancy.cpp.o.provides.build
+.PHONY : CMakeFiles/godseye.dir/color_constancy.cpp.o.provides
+
+CMakeFiles/godseye.dir/color_constancy.cpp.o.provides.build: CMakeFiles/godseye.dir/color_constancy.cpp.o
 
 # Object files for target godseye
 godseye_OBJECTS = \
-"CMakeFiles/godseye.dir/main1.cpp.o"
+"CMakeFiles/godseye.dir/main.cpp.o" \
+"CMakeFiles/godseye.dir/color_constancy.cpp.o"
 
 # External object files for target godseye
 godseye_EXTERNAL_OBJECTS =
 
-godseye: CMakeFiles/godseye.dir/main1.cpp.o
+godseye: CMakeFiles/godseye.dir/main.cpp.o
+godseye: CMakeFiles/godseye.dir/color_constancy.cpp.o
 godseye: CMakeFiles/godseye.dir/build.make
 godseye: /usr/local/lib/libopencv_viz.so.2.4.10
 godseye: /usr/local/lib/libopencv_videostab.so.2.4.10
@@ -129,7 +154,8 @@ godseye: CMakeFiles/godseye.dir/link.txt
 CMakeFiles/godseye.dir/build: godseye
 .PHONY : CMakeFiles/godseye.dir/build
 
-CMakeFiles/godseye.dir/requires: CMakeFiles/godseye.dir/main1.cpp.o.requires
+CMakeFiles/godseye.dir/requires: CMakeFiles/godseye.dir/main.cpp.o.requires
+CMakeFiles/godseye.dir/requires: CMakeFiles/godseye.dir/color_constancy.cpp.o.requires
 .PHONY : CMakeFiles/godseye.dir/requires
 
 CMakeFiles/godseye.dir/clean:

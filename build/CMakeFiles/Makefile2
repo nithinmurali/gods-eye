@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/nithin/data/dev/godseye/build
 CMakeFiles/godseye.dir/all:
 	$(MAKE) -f CMakeFiles/godseye.dir/build.make CMakeFiles/godseye.dir/depend
 	$(MAKE) -f CMakeFiles/godseye.dir/build.make CMakeFiles/godseye.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nithin/data/dev/godseye/build/CMakeFiles  1
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nithin/data/dev/godseye/build/CMakeFiles  1 2
 	@echo "Built target godseye"
 .PHONY : CMakeFiles/godseye.dir/all
 
@@ -69,7 +69,7 @@ all: CMakeFiles/godseye.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/godseye.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nithin/data/dev/godseye/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nithin/data/dev/godseye/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/godseye.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/nithin/data/dev/godseye/build/CMakeFiles 0
 .PHONY : CMakeFiles/godseye.dir/rule

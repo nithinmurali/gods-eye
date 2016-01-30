@@ -111,29 +111,53 @@ godseye/fast:
 	$(MAKE) -f CMakeFiles/godseye.dir/build.make CMakeFiles/godseye.dir/build
 .PHONY : godseye/fast
 
-main1.o: main1.cpp.o
-.PHONY : main1.o
+color_constancy.o: color_constancy.cpp.o
+.PHONY : color_constancy.o
 
 # target to build an object file
-main1.cpp.o:
-	$(MAKE) -f CMakeFiles/godseye.dir/build.make CMakeFiles/godseye.dir/main1.cpp.o
-.PHONY : main1.cpp.o
+color_constancy.cpp.o:
+	$(MAKE) -f CMakeFiles/godseye.dir/build.make CMakeFiles/godseye.dir/color_constancy.cpp.o
+.PHONY : color_constancy.cpp.o
 
-main1.i: main1.cpp.i
-.PHONY : main1.i
+color_constancy.i: color_constancy.cpp.i
+.PHONY : color_constancy.i
 
 # target to preprocess a source file
-main1.cpp.i:
-	$(MAKE) -f CMakeFiles/godseye.dir/build.make CMakeFiles/godseye.dir/main1.cpp.i
-.PHONY : main1.cpp.i
+color_constancy.cpp.i:
+	$(MAKE) -f CMakeFiles/godseye.dir/build.make CMakeFiles/godseye.dir/color_constancy.cpp.i
+.PHONY : color_constancy.cpp.i
 
-main1.s: main1.cpp.s
-.PHONY : main1.s
+color_constancy.s: color_constancy.cpp.s
+.PHONY : color_constancy.s
 
 # target to generate assembly for a file
-main1.cpp.s:
-	$(MAKE) -f CMakeFiles/godseye.dir/build.make CMakeFiles/godseye.dir/main1.cpp.s
-.PHONY : main1.cpp.s
+color_constancy.cpp.s:
+	$(MAKE) -f CMakeFiles/godseye.dir/build.make CMakeFiles/godseye.dir/color_constancy.cpp.s
+.PHONY : color_constancy.cpp.s
+
+main.o: main.cpp.o
+.PHONY : main.o
+
+# target to build an object file
+main.cpp.o:
+	$(MAKE) -f CMakeFiles/godseye.dir/build.make CMakeFiles/godseye.dir/main.cpp.o
+.PHONY : main.cpp.o
+
+main.i: main.cpp.i
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	$(MAKE) -f CMakeFiles/godseye.dir/build.make CMakeFiles/godseye.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	$(MAKE) -f CMakeFiles/godseye.dir/build.make CMakeFiles/godseye.dir/main.cpp.s
+.PHONY : main.cpp.s
 
 # Help Target
 help:
@@ -144,9 +168,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... godseye"
 	@echo "... rebuild_cache"
-	@echo "... main1.o"
-	@echo "... main1.i"
-	@echo "... main1.s"
+	@echo "... color_constancy.o"
+	@echo "... color_constancy.i"
+	@echo "... color_constancy.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 .PHONY : help
 
 

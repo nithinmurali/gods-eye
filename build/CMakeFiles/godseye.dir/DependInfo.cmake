@@ -4,7 +4,8 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/nithin/data/dev/godseye/main1.cpp" "/home/nithin/data/dev/godseye/build/CMakeFiles/godseye.dir/main1.cpp.o"
+  "/home/nithin/data/dev/godseye/color_constancy.cpp" "/home/nithin/data/dev/godseye/build/CMakeFiles/godseye.dir/color_constancy.cpp.o"
+  "/home/nithin/data/dev/godseye/main.cpp" "/home/nithin/data/dev/godseye/build/CMakeFiles/godseye.dir/main.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
