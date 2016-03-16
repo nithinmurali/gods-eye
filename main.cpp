@@ -87,6 +87,84 @@ void balance_white(cv::Mat mat) {
 
 }
 
+
+
+void balance_white1(cv::Mat &mat) 
+{
+  double discard_ratio = 0.012;
+  int hists[3][256];
+
+  for (int x = 0; x < 256; ++x)
+    for (int j = 0; j < 3; ++j)
+      hists[j][x] = 0;
+  
+  for (int y = 0; y < mat.rows; ++y) 
+  {
+    for (int x = 0; x < mat.cols; ++x)
+    {
+      for (int j = 0; j < 3; ++j)
+        hists[j][(mat.at<Vec3b>(y,x)).val[j]] += 1;
+    }
+  }
+
+  //check if you wanna strech red
+  int mean=0,N=0,min=-1,bin=0,start=3;
+  for (int j = 255; j > -1; --j) 
+  {
+      bin = hists[2][j];
+      mean += bin*j;
+      N += bin;
+      if(min==-1 && bin>10)
+        min=j;
+    //cout<<j<<":"<<bin<<',';
+  }
+  cout<<"\n";
+  mean /= N;
+  cout<<"mean:"<<mean<<" min:"<<min<<endl;
+  if(mean < 25 && min < 50 )
+    start=2;
+
+  // cumulative hist
+  int total = mat.cols*mat.rows;
+  int vmin[3], vmax[3];
+  for (int i = 0; i < start; ++i) 
+  {
+    for (int j = 0; j < 255; ++j)
+    {
+      hists[i][j + 1] += hists[i][j];
+    }
+
+    vmin[i] = 0;
+    vmax[i] = 255;
+    while (hists[i][vmin[i]] < discard_ratio * total)
+      vmin[i] += 1;
+    while (hists[i][vmax[i]] > (1 - discard_ratio) * total)
+      vmax[i] -= 1;
+    if (vmax[i] < 255 - 1)
+      vmax[i] += 1;
+  }
+
+
+  for (int y = 0; y < mat.rows; ++y)
+  {
+    for (int x = 0; x < mat.cols; ++x)
+    {  
+      for (int j = 0; j < start; ++j) 
+      {  
+        int val = (mat.at<Vec3b>(y,x)).val[j];
+        if (val < vmin[j])
+          val = vmin[j];
+        if (val > vmax[j])
+          val = vmax[j];
+        (mat.at<Vec3b>(y,x)).val[j] = (val - vmin[j]) * 255.0 / (vmax[j] - vmin[j]);
+      }
+    }
+  }
+
+}
+
+
+
 void inten(Mat image)
 {
     Mat inimg;
@@ -194,14 +272,14 @@ void inten(Mat image)
         imshow("gray edge",b2.run(input,1,0));*/
         
         
-        inten(input);
+        //inten(input);
 
-        cv::cvtColor (im1,im1,CV_BGR2YCrCb);
+        /*cv::cvtColor (im1,im1,CV_BGR2YCrCb);
         vector <Mat> channels;
         cv::split(im1,channels);
         imshow("intensity",channels[0]);
-
-        balance_white(input);
+*/
+        balance_white1(input);
         imshow("white balence",input);
 
         //imshow("final",input);

@@ -17,7 +17,7 @@ using namespace std;
 
 void balance_white(cv::Mat mat) {
   
-  cout<<"wb \n";
+  //cout<<"wb \n";
 
   double discard_ratio = 0.014;
   int hists[3][256];
@@ -92,7 +92,7 @@ int estimateA(Mat DC)
 {
 	double minDC, maxDC;
 	minMaxLoc(DC, &minDC, &maxDC);
-	cout<<"estimated airlight is:"<<maxDC<<endl;
+	//cout<<"estimated airlight is:"<<maxDC<<endl;
 	return maxDC;
 }
 
@@ -149,12 +149,18 @@ int main(int argc, char** argv)
 {
 	//for video defogging
 	
-	if( strcmp(argv[1],"v")==0 )
-	{
-		VideoCapture vid(argv[2]);
+	if( strcmp(argv[1],"v")==0 || strcmp(argv[1],"c")==0 )
+	{	
+		VideoCapture vid(0);
+		/*if( strcmp(argv[1],"v")==0 )
+			vid.open(argv[2]);
+		if(  strcmp(argv[1],"c")==0 )
+			vid.open(0);*/
+		
 		if(!vid.isOpened())
 			return -1;
-		double rate = vid.get(CV_CAP_PROP_FPS);
+		//double rate = vid.get(CV_CAP_PROP_FPS);
+		double rate = 30;
 		int delay = 1000/rate;
 	        bool stop(false);
 
@@ -167,8 +173,8 @@ int main(int argc, char** argv)
 		int Airlight;           //airlight value of current frame
 		int FrameCount = 0;     //frame number
 	        int ad;                 //temp airlight value
-	        namedWindow("before and after", CV_WINDOW_AUTOSIZE);
-	        namedWindow("after", CV_WINDOW_AUTOSIZE);
+	        //namedWindow("before and after", CV_WINDOW_AUTOSIZE);
+	        namedWindow("after");
 		
 		for(;;)
 		{
@@ -176,8 +182,8 @@ int main(int argc, char** argv)
 			resize(frame,frame, Size(320,240), 0, 0, INTER_NEAREST);
         
 			FrameCount++;
-			if(vid.get(CV_CAP_PROP_POS_AVI_RATIO)==1)
-				break;
+			//if(vid.get(CV_CAP_PROP_POS_AVI_RATIO)==1)
+			//	break;
 
 			//create mat for showing the frame before and after processing
 		        Mat beforeafter = Mat::zeros(frame.rows, 2 * frame.cols, CV_8UC3);
@@ -203,20 +209,20 @@ int main(int argc, char** argv)
 				darkChannel = getMedianDarkChannel(frame, 5);
 			        Airlight = estimateA(darkChannel);
 			        T = estimateTransmission(darkChannel, Airlight);
-	                        cout<<"previous:"<<Airlightp<<"--current:"<<Airlight<<endl;
+	                        //cout<<"previous:"<<Airlightp<<"--current:"<<Airlight<<endl;
 			        ad = int(alpha * double(Airlight) + (1 - alpha) * double(Airlightp));//airlight smoothing
-			        cout<<"smoothed airlight is:"<<ad<<endl;
+			        //cout<<"smoothed airlight is:"<<ad<<endl;
 			        fogfree = getDehazed(frame, T, ad);
 
 				t = (double)cvGetTickCount() - t;
-				printf( "=============Execution time per frame = %gms\n", t/((double)cvGetTickFrequency()*1000.) );
+				//printf( "=============Execution time per frame = %gms\n", t/((double)cvGetTickFrequency()*1000.) );
 			}
 		    	//balance_white(frame);
 		        frame.copyTo(beforeafter(roil));
 		        fogfree.copyTo(beforeafter(roir));
 			imshow("after",fogfree);
 			//imshow("before and after", fogfree);
-			imshow("before and after", beforeafter);
+			//imshow("before and after", beforeafter);
 
 			if(waitKey(delay) >= 0)
 				stop = true;
@@ -224,7 +230,7 @@ int main(int argc, char** argv)
 	}
 	else if( strcmp(argv[1],"i")==0 )
 	{
-		cout<<"dehazing image \n";
+		//cout<<"dehazing image \n";
 		Mat fog = imread(argv[2]);
 		Mat darkChannel;
 		Mat T;
