@@ -27,6 +27,8 @@ stdlib.h
 -
 fstream
 -
+string
+-
 color_constancy.hpp
 /home/nithin/data/dev/godseye/color_constancy.hpp
 

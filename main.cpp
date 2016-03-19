@@ -10,6 +10,7 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include <stdlib.h>
 #include <fstream>
+#include <string>
 #include "color_constancy.hpp"
 
 
@@ -29,6 +30,7 @@ void balance_white1(cv::Mat &mat)
     for (int j = 0; j < 3; ++j)
       hists[j][x] = 0;
   
+  //creating histogram
   for (int y = 0; y < mat.rows; ++y) 
   {
     for (int x = 0; x < mat.cols; ++x)
@@ -49,9 +51,9 @@ void balance_white1(cv::Mat &mat)
         min=j;
     //cout<<j<<":"<<bin<<',';
   }
-  cout<<"\n";
+  //cout<<"\n";
   mean /= N;
-  cout<<"mean:"<<mean<<" min:"<<min<<endl;
+  //cout<<"mean:"<<mean<<" min:"<<min<<endl;
   if(mean < 25 && min < 50 )
     start=2;
 
@@ -71,6 +73,7 @@ void balance_white1(cv::Mat &mat)
       vmin[i] += 1;
     while (hists[i][vmax[i]] > (1 - discard_ratio) * total)
       vmax[i] -= 1;
+    
     if (vmax[i] < 255 - 1)
       vmax[i] += 1;
   }
@@ -93,7 +96,6 @@ void balance_white1(cv::Mat &mat)
   }
 
 }
-
 
 
 void inten(Mat image)
@@ -141,9 +143,33 @@ void inten(Mat image)
     cout<<"mean intensity: "<<mean<<" var"<<var<<endl;
 }
 
- int main( int argc, char** argv )
+static void help()
 {
+    cout
+        << "------------------------------------------------------------------------------" << endl
+        << "This program enhances images/Videos"                                            << endl
+        << "Usage:"                                                                         << endl
+        << "./godseye fileName [i/v] [outfile]"                                             << endl
+        << "   fileName - The image or video path"                                          << endl
+        << "   i - if file is image"                                                        << endl
+        << "   v - if file is video"                                                        << endl
+        << "   s - save the output"                                                         << endl
+        << "------------------------------------------------------------------------------" << endl
+        << endl;
+}
+
+
+ int main( int argc, char** argv )
+{    
+
+    if (argc < 3 || ( argv[2][0] != 'v' && argv[2][0] != 'i') )
+    {
+      help();
+      return 0;
+    }
+
     int type = 1;//img
+    bool store = false; //store output
     Mat imgOriginal;
     VideoCapture cap; // try capture the video
     if(argv[1][0] == '0' )
@@ -154,20 +180,66 @@ void inten(Mat image)
     Mat input, image, dst;
     input.create(240,320,CV_8UC(3));
 
-    color_correction::contrast_stretching a;
+    /*color_correction::contrast_stretching a;
     color_correction::gray_world b1;
     color_correction::gray_edge b2;
     color_correction::maxRGB b3;
     color_correction::max_edge b4;
+    */
+    
 
-    if(argc >= 2)
+    if( argv[2][0] == 'v')
     { 
       type = 2; //video
     }
-    else
+    else if(argv[2][0] == 'i')
     {
         imgOriginal = imread(argv[1], CV_LOAD_IMAGE_UNCHANGED);
+        
+        if(argc == 4)
+        {
+          Mat imop;
+          imop = imgOriginal.clone();
+          balance_white1(imop);
+          imwrite("out.jpg", imop);
+        }
     }
+
+    VideoWriter outputVideo;
+    
+    const string source = argv[1];  
+    string::size_type pAt = source.find_last_of('.');                  // Find extension point
+    const string ext = source.substr(pAt, source.length());   // Form the new name with     
+    
+    if(argc == 4)
+    {
+      if(ext == ".avi")
+        outputVideo.open("out.avi",CV_FOURCC('M','J','P','G'),10, Size(320,240),true);
+      else
+        outputVideo.open("out.mp4",CV_FOURCC('M','J','P','G'),8, Size(320,240),true);
+
+      if (!outputVideo.isOpened())
+      {
+          cout  << "Could not open the output video for write" << endl;
+          return -1;
+      }
+    }
+    
+    /*const string source      = argv[1];           // the source file name
+
+    string::size_type pAt = source.find_last_of('.');                  // Find extension point
+    const string NAME = source.substr(0, pAt) + argv[2][0] + ".avi";   // Form the new name with container
+    int ex = static_cast<int>(cap.get(CV_CAP_PROP_FOURCC));     // Get Codec Type- Int form
+
+    // Transform from int to char via Bitwise operators
+    char EXT[] = {(char)(ex & 0XFF) , (char)((ex & 0XFF00) >> 8),(char)((ex & 0XFF0000) >> 16),(char)((ex & 0XFF000000) >> 24), 0};
+
+    Size S = Size((int) cap.get(CV_CAP_PROP_FRAME_WIDTH),    // Acquire input size
+                  (int) cap.get(CV_CAP_PROP_FRAME_HEIGHT));
+
+    VideoWriter outputVideo;                                        // Open the output
+    outputVideo.open(NAME, ex, cap.get(CV_CAP_PROP_FPS), S, true);
+    */
 
     int i =1;
     while (true)
@@ -210,19 +282,22 @@ void inten(Mat image)
         imshow("intensity",channels[0]);*/
 
         balance_white1(input);
-        imshow("white balence",input);
+        imshow("Gods Eye",input);
 
         //imshow("final",input);
 
         ///////////////////////////////////////////
         ////            till here                //
         ///////////////////////////////////////////
+        
+        outputVideo.write(input);
+
         if ( k == 27|| k == 1048603 ) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
         {
             cout << "esc key is pressed by user" << endl;
             break; 
         }
-        else if ( k == 110 || k == 1048686 )//press 'n' for next frame
+        else if ( /*k == 110 || k == 1048686*/ true )//press 'n' for next frame
         {
             i=1;
         }
