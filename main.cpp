@@ -156,28 +156,78 @@ static void help()
         << "   s - save the output"                                                         << endl
         << "------------------------------------------------------------------------------" << endl
         << endl;
+    exit(0);
 }
 
 
  int main( int argc, char** argv )
-{    
-
-    if (argc < 3 || ( argv[2][0] != 'v' && argv[2][0] != 'i') )
-    {
-      help();
-      return 0;
-    }
-
+{   
+    
     int type = 1;//img
     bool store = false; //store output
     Mat imgOriginal;
     VideoCapture cap; // try capture the video
-    if(argv[1][0] == '0' )
-      cap.open(0);
-    else
-      cap.open(argv[1]);
-
+    VideoWriter outputVideo;
     Mat input, image, dst;
+    
+    switch (argc)
+    {
+      case 1:
+        help();
+        break;
+
+      case 2:
+        if(argv[1][0] == '0')
+        {
+          type = -1;
+          cap.open(0);
+        }
+        else
+          help();
+        break;
+ 
+      case 4:
+        {
+          store = true;
+          const string source = argv[1];  
+          string::size_type pAt = source.find_last_of('.');                  // Find extension point
+          const string ext = source.substr(pAt, source.length());   // Form the new name with     
+          
+          if(argv[2][0] == 'v')
+          {
+            outputVideo.open("out.avi",CV_FOURCC('M','J','P','G'),10, Size(320,240),true);
+            if (!outputVideo.isOpened())
+            {
+                cout  << "Could not open the output video for write" << endl;
+                return -1;
+            }
+          }
+          else if(argv[2][0] == 'i')
+          {
+            type = 1;
+            imgOriginal = imread(argv[1], CV_LOAD_IMAGE_UNCHANGED);    
+            Mat imop;
+            imop = imgOriginal.clone();
+            balance_white1(imop);
+            imwrite("out.jpeg", imop);
+          }
+        }
+
+      case 3:
+   
+        if(argv[2][0] == 'v')
+        {
+          type = 2; //video
+          cap.open(argv[1]);
+        }
+        else if(argv[2][0] == 'i')
+        {
+          type =1; //image
+          imgOriginal = imread(argv[1], CV_LOAD_IMAGE_UNCHANGED);    
+        }
+        break;
+    }
+
     input.create(240,320,CV_8UC(3));
 
     /*color_correction::contrast_stretching a;
@@ -187,66 +237,12 @@ static void help()
     color_correction::max_edge b4;
     */
     
-
-    if( argv[2][0] == 'v')
-    { 
-      type = 2; //video
-    }
-    else if(argv[2][0] == 'i')
-    {
-        imgOriginal = imread(argv[1], CV_LOAD_IMAGE_UNCHANGED);
-        
-        if(argc == 4)
-        {
-          Mat imop;
-          imop = imgOriginal.clone();
-          balance_white1(imop);
-          imwrite("out.jpeg", imop);
-        }
-    }
-
-    VideoWriter outputVideo;
-    
-    const string source = argv[1];  
-    string::size_type pAt = source.find_last_of('.');                  // Find extension point
-    const string ext = source.substr(pAt, source.length());   // Form the new name with     
-    
-    if(argc == 4 && type == 2)
-    {
-      //if(ext == ".avi")
-        outputVideo.open("out.avi",CV_FOURCC('M','J','P','G'),10, Size(320,240),true);
-      //else
-        //outputVideo.open("out.mp4",CV_FOURCC('M','J','P','G'),8, Size(320,240),true);
-
-      if (!outputVideo.isOpened())
-      {
-          cout  << "Could not open the output video for write" << endl;
-          return -1;
-      }
-    }
-    
-    /*const string source      = argv[1];           // the source file name
-
-    string::size_type pAt = source.find_last_of('.');                  // Find extension point
-    const string NAME = source.substr(0, pAt) + argv[2][0] + ".avi";   // Form the new name with container
-    int ex = static_cast<int>(cap.get(CV_CAP_PROP_FOURCC));     // Get Codec Type- Int form
-
-    // Transform from int to char via Bitwise operators
-    char EXT[] = {(char)(ex & 0XFF) , (char)((ex & 0XFF00) >> 8),(char)((ex & 0XFF0000) >> 16),(char)((ex & 0XFF000000) >> 24), 0};
-
-    Size S = Size((int) cap.get(CV_CAP_PROP_FRAME_WIDTH),    // Acquire input size
-                  (int) cap.get(CV_CAP_PROP_FRAME_HEIGHT));
-
-    VideoWriter outputVideo;                                        // Open the output
-    outputVideo.open(NAME, ex, cap.get(CV_CAP_PROP_FPS), S, true);
-    */
-
     int i =1;
     while (true)
     {
         int k = waitKey(FPS);
         //cout<<k<<endl;
-        if (type == 2 && i == 1)
+        if (( type == 2 || type == -1 )&& i == 1)
         {
             bool bSuccess = cap.read(imgOriginal); // read a new frame from video
             if (!bSuccess) //if not success, break loop
@@ -290,7 +286,8 @@ static void help()
         ////            till here                //
         ///////////////////////////////////////////
         
-        outputVideo.write(input);
+        if(store)
+          outputVideo.write(input);
 
         if ( k == 27|| k == 1048603 ) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
         {
