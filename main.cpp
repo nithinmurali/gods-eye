@@ -201,7 +201,7 @@ static void help()
           Mat imop;
           imop = imgOriginal.clone();
           balance_white1(imop);
-          imwrite("out.jpg", imop);
+          imwrite("out.jpeg", imop);
         }
     }
 
@@ -211,12 +211,12 @@ static void help()
     string::size_type pAt = source.find_last_of('.');                  // Find extension point
     const string ext = source.substr(pAt, source.length());   // Form the new name with     
     
-    if(argc == 4)
+    if(argc == 4 && type == 2)
     {
-      if(ext == ".avi")
+      //if(ext == ".avi")
         outputVideo.open("out.avi",CV_FOURCC('M','J','P','G'),10, Size(320,240),true);
-      else
-        outputVideo.open("out.mp4",CV_FOURCC('M','J','P','G'),8, Size(320,240),true);
+      //else
+        //outputVideo.open("out.mp4",CV_FOURCC('M','J','P','G'),8, Size(320,240),true);
 
       if (!outputVideo.isOpened())
       {
